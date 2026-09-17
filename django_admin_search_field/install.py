@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 from django_admin_search_field.fields import (
-    _search_field_var,
     build_search_field_choices,
+    get_search_field_var,
     get_selected_search_field,
     resolve_search_fields,
 )
@@ -43,7 +43,7 @@ def install_search_field_selector() -> None:
     # 1) 'sf' (or the configured override) must not be read as a list filter.
     from django.contrib.admin.views import main as admin_main
 
-    search_field_var = _search_field_var()
+    search_field_var = get_search_field_var()
     if search_field_var not in admin_main.IGNORED_PARAMS:
         admin_main.IGNORED_PARAMS = tuple(admin_main.IGNORED_PARAMS) + (search_field_var,)
 
@@ -67,11 +67,11 @@ def install_search_field_selector() -> None:
         try:
             cl.search_field_choices = build_search_field_choices(self, request)
             cl.search_field_selected = get_selected_search_field(request)
-            cl.search_field_var = _search_field_var()
+            cl.search_field_var = get_search_field_var()
         except Exception:
             cl.search_field_choices = []
             cl.search_field_selected = ""
-            cl.search_field_var = _search_field_var()
+            cl.search_field_var = get_search_field_var()
         return cl
 
     ModelAdmin.get_search_fields = get_search_fields

@@ -34,7 +34,7 @@ from django.db.models.constants import LOOKUP_SEP
 _LOOKUP_PREFIXES = ("^", "=", "@")
 
 
-def _search_field_var() -> str:
+def get_search_field_var() -> str:
     """Name of the GET parameter carrying the chosen field.
 
     Override with ``ADMIN_SEARCH_FIELD_VAR`` in your Django settings if ``sf``
@@ -43,9 +43,11 @@ def _search_field_var() -> str:
     return getattr(settings, "ADMIN_SEARCH_FIELD_VAR", "sf")
 
 
-# Kept as a module-level constant for convenience/backwards compatibility.
-# Prefer calling ``_search_field_var()`` internally so overrides via settings
-# take effect even after this module has been imported.
+# Default value of the GET parameter, kept as a module-level constant for
+# convenience (e.g. building test requests). Internal code calls
+# ``get_search_field_var()`` instead, so a project overriding
+# ``ADMIN_SEARCH_FIELD_VAR`` still gets correct behaviour even though this
+# constant itself won't reflect the override.
 SEARCH_FIELD_VAR = "sf"
 
 
@@ -99,7 +101,7 @@ def label_for_search_field(model, field: str) -> str:
 def get_selected_search_field(request) -> str:
     """Return the field chosen in the GET params, or ``""`` for "All fields"."""
     try:
-        return (request.GET.get(_search_field_var()) or "").strip()
+        return (request.GET.get(get_search_field_var()) or "").strip()
     except Exception:
         return ""
 
@@ -188,9 +190,9 @@ class SearchFieldSelectMixin:
         try:
             cl.search_field_choices = build_search_field_choices(self, request)
             cl.search_field_selected = get_selected_search_field(request)
-            cl.search_field_var = _search_field_var()
+            cl.search_field_var = get_search_field_var()
         except Exception:
             cl.search_field_choices = []
             cl.search_field_selected = ""
-            cl.search_field_var = _search_field_var()
+            cl.search_field_var = get_search_field_var()
         return cl

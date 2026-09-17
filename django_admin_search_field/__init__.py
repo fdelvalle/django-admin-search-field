@@ -47,8 +47,10 @@ To enable the selector on a single ``ModelAdmin`` only, use the mixin::
 from __future__ import annotations
 
 from django_admin_search_field.fields import (
+    SEARCH_FIELD_VAR,
     SearchFieldSelectMixin,
     build_search_field_choices,
+    get_search_field_var,
     get_selected_search_field,
     label_for_search_field,
     resolve_search_fields,
@@ -56,13 +58,15 @@ from django_admin_search_field.fields import (
 )
 from django_admin_search_field.install import install_search_field_selector
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 default_app_config = "django_admin_search_field.apps.AdminSearchFieldConfig"
 
 __all__ = [
+    "SEARCH_FIELD_VAR",
     "SearchFieldSelectMixin",
     "build_search_field_choices",
+    "get_search_field_var",
     "get_selected_search_field",
     "install_search_field_selector",
     "label_for_search_field",

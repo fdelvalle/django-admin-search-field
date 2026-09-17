@@ -19,6 +19,17 @@ from django_admin_search_field.fields import (
 from tests.testapp.models import Book
 
 
+class PublicApiTests(SimpleTestCase):
+    """Regression: every documented symbol must be importable from the
+    top-level package, not just from .fields (broke in 0.1.0)."""
+
+    def test_top_level_exports(self):
+        import django_admin_search_field as pkg
+
+        for name in pkg.__all__:
+            self.assertTrue(hasattr(pkg, name), f"{name} missing from top-level package")
+
+
 def _request(sf=None):
     factory = RequestFactory()
     data = {}
