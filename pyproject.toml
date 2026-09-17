@@ -39,6 +39,10 @@ dev = [
     "pytest-django>=4.8",
 ]
 
+[project.urls]
+Homepage = "https://github.com/fdelvalle/django-admin-search-field"
+Issues = "https://github.com/fdelvalle/django-admin-search-field/issues"
+
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "tests.settings"
 python_files = ["test_*.py"]
