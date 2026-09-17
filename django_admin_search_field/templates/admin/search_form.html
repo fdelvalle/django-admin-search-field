@@ -1,0 +1,34 @@
+{% load i18n static %}
+{% if cl.search_fields %}
+<div id="toolbar"><form id="changelist-search" method="get" role="search">
+<div><!-- DIV needed for valid HTML -->
+<div class="admin-search-field-group">
+{% if cl.search_field_choices %}
+    <select name="{{ cl.search_field_var|default:'sf' }}" id="search-field-select" class="admin-search-field-select" title="{% translate 'Search by field' %}" aria-label="{% translate 'Search by field' %}">
+        <option value=""{% if not cl.search_field_selected %} selected{% endif %}>{% translate 'All fields' %}</option>
+        {% for choice in cl.search_field_choices %}
+        <option value="{{ choice.value }}"{% if choice.selected %} selected{% endif %}>{{ choice.label }}</option>
+        {% endfor %}
+    </select>
+{% endif %}
+    <input type="text" size="40" name="{{ search_var }}" value="{{ cl.query }}" id="searchbar"{% if cl.search_help_text %} aria-describedby="searchbar_helptext"{% endif %} placeholder="{% translate 'Search' %}">
+    <button type="submit" class="admin-search-field-submit" title="{% translate 'Search' %}" aria-label="{% translate 'Search' %}">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+    </button>
+</div>
+{% if show_result_count %}
+    <span class="small quiet">{% blocktranslate count counter=cl.result_count %}{{ counter }} result{% plural %}{{ counter }} results{% endblocktranslate %} (<a href="?{% if cl.is_popup %}{{ is_popup_var }}=1{% if cl.add_facets %}&{% endif %}{% endif %}{% if cl.add_facets %}{{ is_facets_var }}{% endif %}">{% if cl.show_full_result_count %}{% blocktranslate with full_result_count=cl.full_result_count %}{{ full_result_count }} total{% endblocktranslate %}{% else %}{% translate "Show all" %}{% endif %}</a>)</span>
+{% endif %}
+{% for pair in cl.params.items %}
+    {% if pair.0 != search_var and pair.0 != cl.search_field_var %}<input type="hidden" name="{{ pair.0 }}" value="{{ pair.1 }}">{% endif %}
+{% endfor %}
+</div>
+{% if cl.search_help_text %}
+<br class="clear">
+<div class="help" id="searchbar_helptext">{{ cl.search_help_text }}</div>
+{% endif %}
+</form></div>
+{% endif %}

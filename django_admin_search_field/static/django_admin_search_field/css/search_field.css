@@ -1,0 +1,55 @@
+/* Styling for the search field selector combobox (django-admin-search-field).
+ * Uses the Django admin's own theme variables (--border-color, --body-fg,
+ * --body-bg, --link-fg), so it automatically follows the admin's light/dark
+ * mode without depending on any project-specific visual component. */
+
+#changelist-search .admin-search-field-group {
+    display: inline-flex;
+    align-items: stretch;
+    vertical-align: middle;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--body-bg);
+}
+
+#changelist-search .admin-search-field-group .admin-search-field-select,
+#changelist-search .admin-search-field-group #searchbar,
+#changelist-search .admin-search-field-group .admin-search-field-submit {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: var(--body-fg);
+    height: 2.25rem;
+    box-sizing: border-box;
+}
+
+#changelist-search .admin-search-field-group .admin-search-field-select {
+    border-right: 1px solid var(--border-color);
+    padding: 0 0.5rem;
+    max-width: 12rem;
+}
+
+#changelist-search .admin-search-field-group #searchbar {
+    padding: 0 0.5rem;
+    flex: 1 1 auto;
+}
+
+#changelist-search .admin-search-field-group .admin-search-field-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.75rem;
+    cursor: pointer;
+    color: var(--link-fg);
+}
+
+#changelist-search .admin-search-field-group .admin-search-field-submit:hover {
+    color: var(--link-hover-color, var(--link-fg));
+}
+
+#changelist-search .admin-search-field-group .admin-search-field-select:focus,
+#changelist-search .admin-search-field-group #searchbar:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--link-fg);
+}
