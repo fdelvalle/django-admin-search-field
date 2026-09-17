@@ -1,6 +1,6 @@
 # django-admin-search-field
 
-[![Latest on Django Packages](https://img.shields.io/badge/PyPI-django-admin-search-field-tags-8c3c26.svg)](https://djangopackages.org/packages/p/django-admin-search-field/)
+[![Latest on Django Packages](https://img.shields.io/badge/PyPI-django--admin--search--field-8c3c26.svg)](https://djangopackages.org/packages/p/django-admin-search-field/)
 
 A per-field search selector for the Django admin changelist.
 
