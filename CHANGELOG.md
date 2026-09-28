@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.2.0
 
 - Add a "favorite search field" star next to the combobox: the starred field
   is stored per model in the browser's `localStorage` and pre-selected when

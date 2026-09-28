@@ -58,7 +58,7 @@ from django_admin_search_field.fields import (
 )
 from django_admin_search_field.install import install_search_field_selector
 
-__version__ = "0.1.1"
+__version__ = "0.2.0"
 
 default_app_config = "django_admin_search_field.apps.AdminSearchFieldConfig"
 

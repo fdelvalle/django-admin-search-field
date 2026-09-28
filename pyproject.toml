@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-admin-search-field"
-version = "0.1.1"
+version = "0.2.0"
 description = "Per-field search selector combobox for the Django admin changelist"
 readme = "README.md"
 requires-python = ">=3.10"
