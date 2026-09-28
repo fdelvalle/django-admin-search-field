@@ -48,6 +48,48 @@
     color: var(--link-hover-color, var(--link-fg));
 }
 
+#changelist-search .admin-search-field-group .admin-search-field-favorite {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.25rem;
+    box-sizing: border-box;
+    padding: 0 0.5rem;
+    border: none;
+    border-right: 1px solid var(--border-color);
+    border-radius: 0;
+    background: transparent;
+    color: var(--body-quiet-color, var(--body-fg));
+    cursor: pointer;
+}
+
+#changelist-search .admin-search-field-group .admin-search-field-favorite[hidden] {
+    display: none;
+}
+
+#changelist-search .admin-search-field-group .admin-search-field-favorite svg {
+    fill: none;
+}
+
+#changelist-search .admin-search-field-group .admin-search-field-favorite:hover:not(:disabled) {
+    color: var(--link-fg);
+}
+
+#changelist-search .admin-search-field-group .admin-search-field-favorite.is-favorite,
+#changelist-search .admin-search-field-group .admin-search-field-favorite.is-favorite:hover:not(:disabled) {
+    color: #e0a800;
+}
+
+#changelist-search .admin-search-field-group .admin-search-field-favorite.is-favorite svg {
+    fill: currentColor;
+}
+
+#changelist-search .admin-search-field-group .admin-search-field-favorite:disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+
+#changelist-search .admin-search-field-group .admin-search-field-favorite:focus-visible,
 #changelist-search .admin-search-field-group .admin-search-field-select:focus,
 #changelist-search .admin-search-field-group #searchbar:focus {
     outline: none;

@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Add a "favorite search field" star next to the combobox: the starred field
+  is stored per model in the browser's `localStorage` and pre-selected when
+  the changelist is opened without an explicit `sf` or an ongoing search.
+- Ship `static/django_admin_search_field/js/search_field.js` in the package
+  data (loaded automatically by the bundled `admin/search_form.html`).
+
 ## 0.1.1
 
 - Fix: `SEARCH_FIELD_VAR` (the default GET parameter name) is now reexported

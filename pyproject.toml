@@ -57,6 +57,7 @@ include = ["django_admin_search_field*"]
 django_admin_search_field = [
     "templates/admin/*.html",
     "static/django_admin_search_field/css/*.css",
+    "static/django_admin_search_field/js/*.js",
 ]
 
 [tool.ruff]

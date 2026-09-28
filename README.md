@@ -24,6 +24,9 @@ behaviour.
   call — no need to touch each `admin.py`.
 - Also available as an explicit mixin (`SearchFieldSelectMixin`) if you'd
   rather opt in per `ModelAdmin`.
+- Lets each user star a **favorite field** per model (stored in the
+  browser's `localStorage`): it's pre-selected the next time the changelist
+  is opened without an explicit choice in the URL.
 - Defensive by design: any unexpected failure falls back to Django's native
   search behaviour instead of breaking the admin page.
 - Ships a template override (`admin/search_form.html`) and a small,
@@ -96,6 +99,23 @@ class BookAdmin(SearchFieldSelectMixin, admin.ModelAdmin):
 In this mode you're responsible for including the CSS/template yourself,
 and you don't need to add `django_admin_search_field` to `INSTALLED_APPS` —
 only the Python mixin is used.
+
+## Favorite search field
+
+A star button next to the combobox marks the currently selected field as the
+user's favorite for that model. The choice lives only in the browser
+(`localStorage`, key `django-admin-search-field:favorite:<app_label>.<model_name>`),
+so there's nothing to migrate or configure server-side.
+
+- The favorite is pre-selected when the changelist is opened "fresh" — it
+  never overrides an explicit `sf` in the URL (including "All fields") nor an
+  ongoing search.
+- The favorite option is prefixed with "★" in the combobox; clicking the star
+  again removes it. "All fields" can't be starred (it's already the default).
+- A favorite pointing to a field no longer in `search_fields` is discarded.
+- Progressive enhancement: the star is rendered `hidden` and only shown by the
+  bundled script (`django_admin_search_field/js/search_field.js`, loaded
+  automatically by the template), so without JS the combobox works as before.
 
 ## Configuration
 

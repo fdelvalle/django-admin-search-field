@@ -4,12 +4,17 @@
 <div><!-- DIV needed for valid HTML -->
 <div class="admin-search-field-group">
 {% if cl.search_field_choices %}
-    <select name="{{ cl.search_field_var|default:'sf' }}" id="search-field-select" class="admin-search-field-select" title="{% translate 'Search by field' %}" aria-label="{% translate 'Search by field' %}">
+    <select name="{{ cl.search_field_var|default:'sf' }}" id="search-field-select" class="admin-search-field-select" title="{% translate 'Search by field' %}" aria-label="{% translate 'Search by field' %}" data-favorite-key="{{ cl.opts.app_label }}.{{ cl.opts.model_name }}">
         <option value=""{% if not cl.search_field_selected %} selected{% endif %}>{% translate 'All fields' %}</option>
         {% for choice in cl.search_field_choices %}
         <option value="{{ choice.value }}"{% if choice.selected %} selected{% endif %}>{{ choice.label }}</option>
         {% endfor %}
     </select>
+    <button type="button" id="search-field-favorite" class="admin-search-field-favorite" aria-pressed="false" data-label-add="{% translate 'Mark as favorite search field' %}" data-label-remove="{% translate 'Remove favorite search field' %}" title="{% translate 'Mark as favorite search field' %}" aria-label="{% translate 'Mark as favorite search field' %}" hidden>
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+    </button>
 {% endif %}
     <input type="text" size="40" name="{{ search_var }}" value="{{ cl.query }}" id="searchbar"{% if cl.search_help_text %} aria-describedby="searchbar_helptext"{% endif %} placeholder="{% translate 'Search' %}">
     <button type="submit" class="admin-search-field-submit" title="{% translate 'Search' %}" aria-label="{% translate 'Search' %}">
@@ -31,4 +36,5 @@
 <div class="help" id="searchbar_helptext">{{ cl.search_help_text }}</div>
 {% endif %}
 </form></div>
+{% if cl.search_field_choices %}<script src="{% static 'django_admin_search_field/js/search_field.js' %}" defer></script>{% endif %}
 {% endif %}

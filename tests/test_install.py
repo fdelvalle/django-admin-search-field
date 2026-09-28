@@ -88,3 +88,20 @@ class ChangelistRenderTests(TestCase):
         self.assertEqual(response.status_code, 200)
         html = response.content.decode()
         self.assertIn('value="title" selected', html)
+
+    def test_favorite_toggle_rendered_hidden_until_js(self):
+        response = self.client.get("/admin/testapp/book/")
+        html = response.content.decode()
+        self.assertIn('id="search-field-favorite"', html)
+        # Hidden in the markup: only the JS reveals it (progressive enhancement).
+        self.assertRegex(html, r'id="search-field-favorite"[^>]*\bhidden>')
+
+    def test_favorite_storage_key_is_per_model(self):
+        response = self.client.get("/admin/testapp/book/")
+        html = response.content.decode()
+        self.assertIn('data-favorite-key="testapp.book"', html)
+
+    def test_favorite_script_included(self):
+        response = self.client.get("/admin/testapp/book/")
+        html = response.content.decode()
+        self.assertIn("django_admin_search_field/js/search_field.js", html)
